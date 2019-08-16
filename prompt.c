@@ -3,6 +3,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include "holberton.h"
 
 int main (void)
 {
@@ -11,8 +12,7 @@ int main (void)
 	size_t flag = 1;
 	size_t buffsize = 1024;
 	int characters = 0, pid, secs, len;
-	char *argv[] = {"/bin/ls", NULL};
-
+	char **argv;
 
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
@@ -32,25 +32,37 @@ int main (void)
 		{
 			len = strlen(buff);
 			buff[len - 1] = '\0';
-			execve(buff, argv, NULL);
+			argv = token_buff(buff);
+			if (execve(argv[0], argv, NULL) == -1)
+				perror("Error");
+			return (0);
 		}
 		else
 			wait (&secs);
 		printf("$ ");
      	}
+	free(buff);
+	free(argv);
 	return (0);
 }
 char **token_buff(char *buff)
 {
-	char *deli = " ";
-	int iterator = 0;
-	char *token;
-	char **argv;
+	int buffsize = 64, iterator = 0;
+	char **tokens = malloc(sizeof(char *) * buffsize);
+	char *stoken, *delimit = " ";
 
-	argv = malloc(sizeof(char *) )
-	while (token != NULL)
+	if (tokens == NULL)
 	{
-		token = strtok(, deli);
-		
+		perror("Not possible to allocate memory");
+		exit(98);
 	}
+	stoken = strtok(buff, delimit);
+	while (stoken != NULL)
+	{
+		tokens[iterator] = stoken;
+		iterator++;
+		stoken = strtok(NULL, delimit);
+	}
+	tokens[iterator] = NULL;
+	return (tokens);
 }
