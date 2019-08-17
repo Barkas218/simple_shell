@@ -30,11 +30,11 @@ int main (void)
 		pid = fork();
 		if (pid == 0) /* Executes child */
 		{
-			len = strlen(buff);
+		        len = strlen(buff);
 			buff[len - 1] = '\0';
 			argv = token_buff(buff);
 			if (execve(argv[0], argv, NULL) == -1)
-				perror("Error");
+				perror("exexcve ");
 			return (0);
 		}
 		else
