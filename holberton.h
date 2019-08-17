@@ -3,7 +3,12 @@
 /* const Macros */
 
 #define EXE_PATH "/bin/"
-
+/*libraries */
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
 /* functions prototypes */
 char *concat_path(char *command);
 

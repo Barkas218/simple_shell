@@ -34,7 +34,7 @@ int main (void)
 			len = strlen(buff);
 			buff[len - 1] = '\0';
 			argv = token_buff(buff);
-			argv[0] = strcat(dest, argv[0]);
+			argv[0] = concat_path(argv[0]);
 			printf("%s\n", argv[0]);
 			if (execve(argv[0], argv, NULL) == -1)
 				perror("Error");
