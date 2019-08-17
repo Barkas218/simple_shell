@@ -11,7 +11,7 @@ int main (void)
 	char *a = "exit\n";
 	size_t flag = 1;
 	size_t buffsize = 1024;
-	int characters = 0, pid, secs, len;
+	int characters = 0, pid, secs, len, count;
 	char **argv;
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
@@ -35,11 +35,13 @@ int main (void)
 			argv = token_buff(buff);
 			if (execve(argv[0], argv, NULL) == -1)
 				perror("Error");
+			free(buff);
+			free(argv);
 			return (0);
 		}
 		else
 			wait (&secs);
-     	}
+	}
 	free(buff);
 	free(argv);
 	return (0);
