@@ -13,6 +13,7 @@ int main (void)
 	size_t buffsize = 1024;
 	int characters = 0, pid, secs, len, count;
 	char **argv;
+	char dest[64] = EXE_PATH;
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
@@ -33,14 +34,18 @@ int main (void)
 			len = strlen(buff);
 			buff[len - 1] = '\0';
 			argv = token_buff(buff);
+			argv[0] = strcat(dest, argv[0]);
+			printf("%s\n", argv[0]);
 			if (execve(argv[0], argv, NULL) == -1)
 				perror("Error");
 			free(buff);
 			free(argv);
-			return (0);
+			exit(EXIT_FAILURE);
 		}
 		else
+		{
 			wait (&secs);
+		}
 	}
 	free(buff);
 	free(argv);
