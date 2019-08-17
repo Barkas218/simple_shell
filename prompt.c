@@ -13,16 +13,16 @@ int main (void)
 	size_t buffsize = 1024;
 	int characters = 0, pid, secs, len;
 	char **argv;
-
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
 		exit(1);
 	}
-	printf("$ ");
-	while (flag && (characters = getline(&buff, &buffsize, stdin)) != EOF)
+	while (flag)
 	{
-		if (strcmp(a, buff) == 0)
+		printf("$ ");
+		characters = getline(&buff, &buffsize, stdin);
+		if (!strcmp(a, buff) || characters == EOF)
 		{
 			flag = 0;
 			continue;
@@ -30,16 +30,15 @@ int main (void)
 		pid = fork();
 		if (pid == 0) /* Executes child */
 		{
-		        len = strlen(buff);
+			len = strlen(buff);
 			buff[len - 1] = '\0';
 			argv = token_buff(buff);
 			if (execve(argv[0], argv, NULL) == -1)
-				perror("exexcve ");
+				perror("Error");
 			return (0);
 		}
 		else
 			wait (&secs);
-		printf("$ ");
      	}
 	free(buff);
 	free(argv);
