@@ -10,7 +10,7 @@
 #include <unistd.h>
 #include <sys/wait.h>
 /* functions prototypes */
-char *concat_path(char *command);
-
-char **token_buff(char *buff);
+char *_strcat(char *dest, char *command);
+int check_existence(char *file);
+char **token_buff(char *buff, char *delimiter);
 #endif

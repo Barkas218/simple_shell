@@ -11,9 +11,9 @@ int main (void)
 	char *a = "exit\n";
 	size_t flag = 1;
 	size_t buffsize = 1024;
-	int characters = 0, pid, secs, len, count;
-	char **argv;
-	char dest[64] = EXE_PATH;
+	int characters = 0, pid, secs, len, existence;
+	char **argv = 0, **paths = 0;
+
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
@@ -33,13 +33,37 @@ int main (void)
 		{
 			len = strlen(buff);
 			buff[len - 1] = '\0';
-			argv = token_buff(buff);
-			argv[0] = concat_path(argv[0]);
-			printf("%s\n", argv[0]);
+			argv = token_buff(buff, " ");
+
+			/* test for existence */
+
+			existence = check_existence(argv[0]);
+			if (existence == -1)
+			{
+				int c;
+
+				paths = token_buff(getenv("PATH"), ":");
+				for (c = 0; paths[c]; c++)
+				{
+					char *command = _strcat("/", argv[0]);
+					char *path_command = _strcat(paths[c], command);
+
+					existence = check_existence(path_command);
+					if (existence != -1)
+					{
+						argv[0] = path_command;
+						break;
+					}
+					else
+						free(path_command);
+					free(command);
+				}
+			}
 			if (execve(argv[0], argv, NULL) == -1)
 				perror("Error");
 			free(buff);
 			free(argv);
+			free(paths);
 			exit(EXIT_FAILURE);
 		}
 		else
@@ -49,13 +73,14 @@ int main (void)
 	}
 	free(buff);
 	free(argv);
+	free(paths);
 	return (0);
 }
-char **token_buff(char *buff)
+char **token_buff(char *buff, char *delimit)
 {
 	int buffsize = 64, iterator = 0;
 	char **tokens = malloc(sizeof(char *) * buffsize);
-	char *stoken, *delimit = " ";
+	char *stoken;
 
 	if (tokens == NULL)
 	{
@@ -71,4 +96,13 @@ char **token_buff(char *buff)
 	}
 	tokens[iterator] = NULL;
 	return (tokens);
+}
+
+int check_existence(char *path)
+{
+	int fd = access(path, F_OK & X_OK);
+
+	if (fd == -1)
+		return (-1);
+	return (1);
 }
