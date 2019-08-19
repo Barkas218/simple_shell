@@ -8,12 +8,8 @@
 char *_strcat(char *str1, char *str2)
 {
 	char *concatstring;
-	int len1, len2, iterator1, iterator2;
+	int len1 = _strlen(str1), len2 = _strlen(str2), iterator1, iterator2;
 
-	for (len1 = 0; str1[len1] != '\0'; len1++)
-		;
-	for (len2 = 0; str2[len2] != '\0'; len2++)
-		;
 	concatstring = malloc(sizeof(char) * (len1 + len2 + 1));
 	if (concatstring == NULL)
 	{

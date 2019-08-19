@@ -1,4 +1,3 @@
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -8,7 +7,6 @@
 int main (void)
 {
 	char *buff;
-	char *a = "exit\n";
 	size_t flag = 1;
 	size_t buffsize = 1024;
 	int characters = 0, pid, secs, len, existence;
@@ -21,9 +19,9 @@ int main (void)
 	}
 	while (flag)
 	{
-		printf("$ ");
-		characters = getline(&buff, &buffsize, stdin);
-		if (!strcmp(a, buff) || characters == EOF)
+		write_to_stdout("$ ");
+		characters = _getline(buff, buffsize);
+		if (!_strcmp("exit", buff) || characters == EOF)
 		{
 			flag = 0;
 			continue;
@@ -96,6 +94,11 @@ char **token_buff(char *buff, char *delimit)
 	}
 	tokens[iterator] = NULL;
 	return (tokens);
+}
+
+void write_to_stdout(char *str)
+{
+	write(1, str, _strlen(str));
 }
 
 int check_existence(char *path)
