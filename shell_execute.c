@@ -18,7 +18,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
 			return(built_in_arr[i].f(argv));
 		i++;
 	}
-	return (shell_launch(**argv));
+	return (shell_launch(argv));
 }
 /**
  *
@@ -27,7 +27,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
  */
 int shell_launch(char **argv)
 {
-	int pid, existence, int status;
+	int pid, existence, status;
 	char **path, *command, *path_command;
 
 	pid = fork();
@@ -39,15 +39,16 @@ int shell_launch(char **argv)
 		existence = check_existence(argv[0]);
 		if (existence == -1)
 		{
-			int c:
+			int c;
+
 			path = token_buff(_getenv("PATH"), ":");
 			for (c = 0; path[c]; c++)
 			{
-				char *command = _strcat("/", argv[0];);
-				char *path_command = _strcat(path[c], command);
+				command = _strcat("/", argv[0]);
+				path_command = _strcat(path[c], command);
 
 				existence = check_existence(path_command);
-				if (existence = -1)
+				if (existence != -1)
 				{
 					argv[0] = path_command;
 					break;
@@ -57,9 +58,9 @@ int shell_launch(char **argv)
 				free(command);
 			}
 		}
+		printf("%s\n", argv[0]);
 		if (execve(argv[0], argv, NULL) == -1)
-			perror("argv[0]");
-		free(buff);
+			perror("Error");
 		free(argv);
 		free(path);
 		exit(EXIT_FAILURE);
@@ -68,4 +69,5 @@ int shell_launch(char **argv)
 		perror("hsh");
 	else
 		wait(&status);
+	return (status);
 }

@@ -4,12 +4,11 @@
 #include <sys/wait.h>
 #include "holberton.h"
 
-int main (void)
+int main(void)
 {
 	char *buff;
 	size_t buffsize = 1024;
-	int  i = 0, pid, secs, len, existence;
-	char **argv = 0, **paths = 0;
+	char **argv = 0;
 
 	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
@@ -24,64 +23,14 @@ int main (void)
 	write_to_stdout("$ ");
 	while (getline(&buff, &buffsize, stdin) != EOF)
 	{
-		len = _strlen(buff);
-		buff[len - 1] = '\0';
+		buff[_strlen(buff) - 1] = '\0';
 		argv = token_buff(buff, " ");
 
-       		if(argv[0] == NULL)
-		{
-			continue;
-	 	}
-		i = 0;
-		while (i < 1)
-		{
-			if (_strcmp(argv[0], built_in_arr[i].command) == 0)
-			    return (built_in_arr[i].f(argv));
-			i++;
-		}
-
-		pid = fork();
-		if (pid == 0) /* Executes child */
-		{
-			/* test for existence */
-
-			existence = check_existence(argv[0]);
-			if (existence == -1)
-			{
-				int c;
-				paths = token_buff(_getenv("PATH"), ":");
-			 	for (c = 0; paths[c]; c++)
-				{
- 					char *command = _strcat("/", argv[0]);
-					char *path_command = _strcat(paths[c], command);
-
-					existence = check_existence(path_command);
-					if (existence != -1)
-					{
-						argv[0] = path_command;
-						break;
-					}
-					else
-						free(path_command);
-					free(command);
-				}
-			}
-			if (execve(argv[0], argv, NULL) == -1)
-				perror("Error");
-			free(buff);
-			free(argv);
-			free(paths);
-			exit(EXIT_FAILURE);
-		}
-		else
-		{
-			wait (&secs);
-		}
+		shell_execute(argv, built_in_arr);
 		write_to_stdout("$ ");
 	}
 	free(buff);
 	free(argv);
-	free(paths);
 	return (0);
 }
 char **token_buff(char *buff, char *delimit)

@@ -7,6 +7,7 @@ extern char **environ;
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/wait.h>
 
 /* Structs */
 
@@ -30,4 +31,6 @@ char *_strtok(char *s, char *deli);
 unsigned int _strcspn(char *s1, char *s2);
 char *_strchr(char *s, char b);
 int _atoi(char *s);
+int shell_execute(char **argv, built_in_t built_in_arr[]);
+int shell_launch(char **argv);
 #endif
