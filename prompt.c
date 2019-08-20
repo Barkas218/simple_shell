@@ -7,41 +7,50 @@
 int main (void)
 {
 	char *buff;
-	size_t flag = 1;
 	size_t buffsize = 1024;
-	int characters = 0, pid, secs, len, existence;
+	int  i = 0, pid, secs, len, existence;
 	char **argv = 0, **paths = 0;
+
+	built_in_t built_in_arr[] = {
+	{"exit", ourexit},
+	{NULL, NULL}
+	};
 
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
 		exit(1);
 	}
-	while (flag)
+	write_to_stdout("$ ");
+	while (getline(&buff, &buffsize, stdin) != EOF)
 	{
-		write_to_stdout("$ ");
-		characters = _getline(buff, buffsize);
-		if (!_strcmp("exit", buff) || characters == EOF)
+		len = _strlen(buff);
+		buff[len - 1] = '\0';
+		argv = token_buff(buff, " ");
+
+       		if(argv[0] == NULL)
 		{
-			flag = 0;
 			continue;
 		}
+		i = 0;
+		while (i < 1)
+		{
+			if (_strcmp(argv[0], built_in_arr[i].command) == 0)
+			    return (built_in_arr[i].f(argv));
+			i++;
+		}
+
 		pid = fork();
 		if (pid == 0) /* Executes child */
 		{
-			len = strlen(buff);
-			buff[len - 1] = '\0';
-			argv = token_buff(buff, " ");
-
 			/* test for existence */
 
 			existence = check_existence(argv[0]);
 			if (existence == -1)
 			{
 				int c;
-
-				paths = token_buff(getenv("PATH"), ":");
-				for (c = 0; paths[c]; c++)
+				paths = token_buff(_getenv("PATH"), ":");
+			 	for (c = 0; paths[c]; c++)
 				{
 					char *command = _strcat("/", argv[0]);
 					char *path_command = _strcat(paths[c], command);
@@ -68,6 +77,7 @@ int main (void)
 		{
 			wait (&secs);
 		}
+		write_to_stdout("$ ");
 	}
 	free(buff);
 	free(argv);
@@ -85,12 +95,12 @@ char **token_buff(char *buff, char *delimit)
 		perror("Not possible to allocate memory");
 		exit(98);
 	}
-	stoken = strtok(buff, delimit);
+	stoken = _strtok(buff, delimit);
 	while (stoken != NULL)
 	{
 		tokens[iterator] = stoken;
 		iterator++;
-		stoken = strtok(NULL, delimit);
+		stoken = _strtok(NULL, delimit);
 	}
 	tokens[iterator] = NULL;
 	return (tokens);
