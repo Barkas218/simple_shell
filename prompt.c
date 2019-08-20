@@ -31,7 +31,7 @@ int main (void)
        		if(argv[0] == NULL)
 		{
 			continue;
-		}
+	 	}
 		i = 0;
 		while (i < 1)
 		{
@@ -52,7 +52,7 @@ int main (void)
 				paths = token_buff(_getenv("PATH"), ":");
 			 	for (c = 0; paths[c]; c++)
 				{
-					char *command = _strcat("/", argv[0]);
+ 					char *command = _strcat("/", argv[0]);
 					char *path_command = _strcat(paths[c], command);
 
 					existence = check_existence(path_command);
