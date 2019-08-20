@@ -27,7 +27,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
  */
 int shell_launch(char **argv)
 {
-	int pid, existence;
+	int pid, existence, int status;
 	char **path, *command, *path_command;
 
 	pid = fork();
@@ -64,4 +64,8 @@ int shell_launch(char **argv)
 		free(path);
 		exit(EXIT_FAILURE);
 	}
+	else if (pid < 0)
+		perror("hsh");
+	else
+		wait(&status);
 }
