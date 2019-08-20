@@ -7,5 +7,5 @@ ssize_t _getline(char *buffer, size_t size)
 	
 	if (!r)
 		return (-1);
-	return r;
+	return (r);
 }
