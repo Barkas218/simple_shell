@@ -32,6 +32,7 @@ int shell_launch(char **argv)
 	int pid, existence, status;
 	char **path, *command, *path_command;
 
+	(void)signal(SIGINT, sign_handler);
 	pid = fork();
 	if (pid == 0)
 	{

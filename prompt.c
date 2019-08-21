@@ -14,13 +14,12 @@ int main(void)
 	char **argv = 0;
 	int flag = 1;
 
-	built_in_t built_in_arr[] = {
+ 	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
 	{NULL, NULL}
 	};
 
 	(void)signal(SIGINT, sign_handler);
-
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
@@ -32,7 +31,7 @@ int main(void)
 		write_to_stdout("$ ");
 		if (getline(&buff, &buffsize, stdin) == EOF)
 		{
-			write_to_stdout("\n");
+			/*write_to_stdout("\n");*/
 			flag = 0;
 			continue;
 		}
