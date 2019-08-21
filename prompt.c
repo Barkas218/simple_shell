@@ -16,16 +16,29 @@ int main(void)
 
  	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
+	{"env", _printenv},
 	{NULL, NULL}
 	};
-
-	(void)signal(SIGINT, sign_handler);
+ 	(void)signal(SIGINT, sign_handler);
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
 		exit(1);
 	}
-
+	if(isatty(STDIN_FILENO) != 1)
+	{
+		if(getline(&buff, &buffsize, stdin) == EOF)
+		{
+			write_to_stdout("\n");
+			flag = 0;
+		}
+		buff[_strlen(buff) - 1] = '\0';
+		argv = token_buff(buff, " \t\r\n\a");
+		shell_execute(argv, built_in_arr);
+		free(buff);
+		free(argv);
+		return (0);
+	}
 	while (flag)
 	{
 		write_to_stdout("$ ");
@@ -100,4 +113,5 @@ void sign_handler(int sig)
 	(void) sig;
 	write_to_stdout("\n");
 	write_to_stdout("$ ");
+	fflush(stdout);
 }

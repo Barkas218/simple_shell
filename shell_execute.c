@@ -12,7 +12,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
 	if (argv[0] == NULL)
 		return (1);
 
-	while (i < 1)
+	while (i < 2)
 	{
 		if (_strcmp(argv[0], built_in_arr[i].command) == 0)
 		{

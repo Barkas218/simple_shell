@@ -9,6 +9,7 @@ extern char **environ;
 #include <unistd.h>
 #include <sys/wait.h>
 #include <signal.h>
+#include <string.h>
 
 /* Structs */
 
@@ -19,6 +20,7 @@ typedef struct built_in
 } built_in_t;
 
 int ourexit(char **argv);
+int _printenv(char **argv);
 
 /* functions prototypes */
 void sign_handler(int sig);

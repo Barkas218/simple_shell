@@ -10,6 +10,7 @@ int ourexit(char **argv)
 
 	if (argv[1] == NULL)
 	{
+		free(argv);
 		fflush(stdout);
 		exit(status);
 	}
@@ -20,6 +21,7 @@ int ourexit(char **argv)
 			perror("Error: ");
 
 	}
+	free(argv);
 	status = _atoi(argv[1]);
 	exit(status);
 }
