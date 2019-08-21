@@ -31,12 +31,12 @@ int main(void)
 		write_to_stdout("$ ");
 		if (getline(&buff, &buffsize, stdin) == EOF)
 		{
-			/*write_to_stdout("\n");*/
+			write_to_stdout("\n");
 			flag = 0;
 			continue;
 		}
 		buff[_strlen(buff) - 1] = '\0';
-		argv = token_buff(buff, " ");
+		argv = token_buff(buff, " \t\r\n\a");
 		shell_execute(argv, built_in_arr);
 	}
 	free(buff);
@@ -60,12 +60,12 @@ char **token_buff(char *buff, char *delimit)
 		perror("Not possible to allocate memory");
 		exit(98);
 	}
-	stoken = _strtok(buff, delimit);
+	stoken = strtok(buff, delimit);
 	while (stoken != NULL)
 	{
 		tokens[iterator] = stoken;
 		iterator++;
-		stoken = _strtok(NULL, delimit);
+		stoken = strtok(NULL, delimit);
 	}
 	tokens[iterator] = NULL;
 	return (tokens);
