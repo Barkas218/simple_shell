@@ -11,6 +11,7 @@ int _atoi(char *s)
 	int sign;
 	int num;
 	int out;
+
 	num = 0;
 	sign = 0;
 	out = 0;

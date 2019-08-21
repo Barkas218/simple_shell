@@ -3,7 +3,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 #include "holberton.h"
-
+/**
+ * main - integrates the functions to make the shell work
+ * Return: 0 on success
+ */
 int main(void)
 {
 	char *buff;
@@ -14,6 +17,8 @@ int main(void)
 	{"exit", ourexit},
 	{NULL, NULL}
 	};
+
+	(void)signal(SIGINT, sign_handler);
 
 	buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
@@ -33,6 +38,12 @@ int main(void)
 	free(argv);
 	return (0);
 }
+/**
+ * token_buff - splits the buffer into tokens
+ * @buff: pointer to the buffer
+ * @delimit: delimitator chosen
+ * Return: double pointer to the tokens
+ **/
 char **token_buff(char *buff, char *delimit)
 {
 	int buffsize = 64, iterator = 0;
@@ -54,12 +65,19 @@ char **token_buff(char *buff, char *delimit)
 	tokens[iterator] = NULL;
 	return (tokens);
 }
-
+/**
+ * write_to_stdout - writes a string to the stdout
+ * @str: pointer to the string to print
+ **/
 void write_to_stdout(char *str)
 {
 	write(1, str, _strlen(str));
 }
-
+/**
+ * check_existence - checkes whether a file exists
+ * @path: pointer to the path to search in
+ * Return: 1 on success, -1 if failed
+ */
 int check_existence(char *path)
 {
 	int fd = access(path, F_OK & X_OK);
@@ -67,4 +85,14 @@ int check_existence(char *path)
 	if (fd == -1)
 		return (-1);
 	return (1);
+}
+/**
+ * sign_handler - handles the abscensce of a sign
+ * @sig: integer
+ */
+void sign_handler(int sig)
+{
+	(void) sig;
+	write_to_stdout("\n");
+	write_to_stdout("$ ");
 }

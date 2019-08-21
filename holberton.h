@@ -8,10 +8,12 @@ extern char **environ;
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+#include <signal.h>
 
 /* Structs */
 
-typedef struct built_in {
+typedef struct built_in
+{
 	char *command;
 	int (*f)(char **argv);
 } built_in_t;
@@ -19,6 +21,7 @@ typedef struct built_in {
 int ourexit(char **argv);
 
 /* functions prototypes */
+void sign_handler(int sig);
 char *_strcat(char *dest, char *command);
 int check_existence(char *file);
 char **token_buff(char *buff, char *delimiter);

@@ -1,8 +1,8 @@
 #include "holberton.h"
 /**
- * concat_path - concatenates the macro PATH with the
- * argv[0] command.
- * @command: from the commandline to be concatenated
+ * _strcat - concatenates two strings
+ * @str1: first string
+ * @str2: second string to be concatenated
  * Return: pointer to the concatenated string
  */
 char *_strcat(char *str1, char *str2)
@@ -16,11 +16,11 @@ char *_strcat(char *str1, char *str2)
 		printf("Error: impossible to allocate memory");
 		exit(98);
 	}
-	for(iterator1 = 0; str1[iterator1] != '\0'; iterator1++)
+	for (iterator1 = 0; str1[iterator1] != '\0'; iterator1++)
 	{
 		concatstring[iterator1] = str1[iterator1];
 	}
-	for(iterator2 = 0; str2[iterator2] != '\0'; iterator2++)
+	for (iterator2 = 0; str2[iterator2] != '\0'; iterator2++)
 	{
 		concatstring[iterator1 + iterator2] = str2[iterator2];
 	}

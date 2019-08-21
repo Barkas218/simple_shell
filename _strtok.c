@@ -1,5 +1,10 @@
 #include "holberton.h"
-
+/**
+ * _strtok - tokenizes a string
+ * @s: string to be tokenized
+ * @deli: delimitator for the tokens
+ * Return: pointer to each token
+ */
 char *_strtok(char *s, char *deli)
 {
 	int c;
@@ -7,9 +12,9 @@ char *_strtok(char *s, char *deli)
 
 	if (!s)
 		s = str;
-	do
-	{
-		if ((c = *s++) == 0)
+	do {
+		c = *s++;
+		if (c == 0)
 			return (0);
 	} while (_strchr(deli, c));
 	--s;
