@@ -9,8 +9,10 @@ int ourexit(char **argv)
 	int status = 0, i;
 
 	if (argv[1] == NULL)
+	{
 		fflush(stdout);
 		exit(status);
+	}
 
 	for (i = 0; argv[1][i] != '\0'; i++)
 	{

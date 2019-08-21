@@ -12,6 +12,7 @@ int main(void)
 	char *buff;
 	size_t buffsize = 1024;
 	char **argv = 0;
+	int flag = 1;
 
 	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
@@ -25,14 +26,19 @@ int main(void)
 	{
 		exit(1);
 	}
-	write_to_stdout("$ ");
-	while (getline(&buff, &buffsize, stdin) != EOF)
+
+	while (flag)
 	{
+		write_to_stdout("$ ");
+		if (getline(&buff, &buffsize, stdin) == EOF)
+		{
+			write_to_stdout("\n");
+			flag = 0;
+			continue;
+		}
 		buff[_strlen(buff) - 1] = '\0';
 		argv = token_buff(buff, " ");
-
 		shell_execute(argv, built_in_arr);
-		write_to_stdout("$ ");
 	}
 	free(buff);
 	free(argv);

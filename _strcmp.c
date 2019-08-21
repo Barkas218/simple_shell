@@ -7,15 +7,22 @@
  */
 int _strcmp(char *s1, char *s2)
 {
-	int i = 0;
-	int dif = 0;
+	int i = 0, c = 0, greater;
+	int len1 = _strlen(s1), len2 = _strlen(s2);
+
+	if (!len1 || !len2)
+		return (-1);
 
 	while (s1[i] != 0 && s2[i] != 0)
 	{
-		dif = s1[i] - s2[i];
-		if (dif != 0)
-			break;
+		if (s1[i] == s2[i])
+		{
+			c++;
+		}
 		i++;
 	}
-	return (dif);
+	greater = len1 > len2 ? len1 : len2;
+	if (c == greater)
+		return (0);
+	return (-1);
 }
