@@ -2,8 +2,11 @@
 
 int _setenv(char **argv)
 {
-	int i = 0;
+	int i = 0, exist = 0, len = 0;
 	char *copy, *tok;
+
+	while (environ[len])
+		len++;
 
 	while (environ[i])
 	{
@@ -14,11 +17,17 @@ int _setenv(char **argv)
 		{
 			tok = strcat(tok, "=");
 			tok = strcat(tok, argv[2]);
-
 			environ[i] = tok;
+
+			exist = 1;
 		}
 		i++;
-		/*free(copy);*/
+		free(copy);
+	}
+
+	if (!exist)
+	{
+		
 	}
 
 	return (0);
