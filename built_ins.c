@@ -25,3 +25,43 @@ int ourexit(char **argv)
 	status = _atoi(argv[1]);
 	exit(status);
 }
+/**
+ * _cd - function that changes the current directory
+ * @argv: string containing the input
+ * Return: 1 on success
+ **/
+int _cd(char **argv)
+{
+	char buff[1024], *cwd, *new_wd, *comp = "-", *old_pwd;
+	int chint = 0;
+
+	cwd = getcwd(buff, sizeof(buff));
+	if (argv[1] == NULL)
+	{
+		chdir("/home");
+		return(0);
+	}
+	if (_strcmp(argv[1], comp) == 0)
+	{
+		old_pwd = _getenv("OLDPWD");
+		chdir(old_pwd);
+		return (0);
+	}
+
+	if (cwd == NULL)
+	{
+		free(argv);
+		perror("Error: ");
+		return (1);
+	}
+	chint = chdir(argv[1]);
+	if (chint == -1)
+	{
+		free(argv);
+		perror("Error: ");
+		return (1);
+	}
+	new_wd = getcwd(buff, sizeof(buff));
+	setenv("PWD", new_wd, 1);
+	return (0);
+}

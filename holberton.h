@@ -23,7 +23,7 @@ int ourexit(char **argv);
 int _printenv(char **argv);
 int _setenv(char ** argv);
 int _cd(char **argv);
-int _unsetenv(**argv);
+int _unsetenv(char **argv);
 
 /* functions prototypes */
 void sign_handler(int sig);
