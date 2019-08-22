@@ -21,6 +21,7 @@ typedef struct built_in
 
 int ourexit(char **argv);
 int _printenv(char **argv);
+int _setenv(char ** argv);
 
 /* functions prototypes */
 void sign_handler(int sig);
@@ -35,6 +36,8 @@ char *_getenv(char *key);
 char *_strtok(char *s, char *deli);
 unsigned int _strcspn(char *s1, char *s2);
 char *_strchr(char *s, char b);
+char *_strdup(char *s);
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 int _atoi(char *s);
 int shell_execute(char **argv, built_in_t built_in_arr[]);
 int shell_launch(char **argv);

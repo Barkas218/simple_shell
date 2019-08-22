@@ -17,6 +17,7 @@ int main(void)
  	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
 	{"env", _printenv},
+	{"setenv", _setenv},
 	{NULL, NULL}
 	};
  	(void)signal(SIGINT, sign_handler);
