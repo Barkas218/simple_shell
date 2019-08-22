@@ -12,10 +12,10 @@ char *_getenv(char *name)
 
 	while (environ[i] != NULL)
 	{
-		token = _strtok(environ[i], deli);
+		token = strtok(environ[i], deli);
 		if (_strcmp(token, name) == 0)
 		{
-			return (_strtok(NULL, deli));
+			return (strtok(NULL, deli));
 		}
 		i++;
 	}
