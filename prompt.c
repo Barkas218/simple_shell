@@ -18,6 +18,8 @@ int main(void)
 	{"exit", ourexit},
 	{"env", _printenv},
 	{"setenv", _setenv},
+	{"cd", _cd},
+	{"unsetenv", _unsetenv},
 	{NULL, NULL}
 	};
  	(void)signal(SIGINT, sign_handler);

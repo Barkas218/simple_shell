@@ -22,6 +22,8 @@ typedef struct built_in
 int ourexit(char **argv);
 int _printenv(char **argv);
 int _setenv(char ** argv);
+int _cd(char **argv);
+int _unsetenv(**argv);
 
 /* functions prototypes */
 void sign_handler(int sig);
