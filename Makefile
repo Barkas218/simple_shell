@@ -1,4 +1,5 @@
-all :
-	gcc -Wall -Werror -Wextra -pedantic *.c -o hsh
-	valgrind --leak-check=full ./hsh
+ill :
+	gcc -Wall -Werror -Wextra -pedantic -g -o hsh *.c
+	valgrind --leak-check=yes ./hsh
+	#gdb ./hsh
 	#./hsh

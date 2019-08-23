@@ -9,7 +9,7 @@
  */
 int main(void)
 {
-	char *buff;
+	char *buff = NULL;
 	size_t buffsize = 1024;
 	char **argv = 0;
 	int flag = 1;
@@ -22,12 +22,12 @@ int main(void)
 	{"unsetenv", _unsetenv},
 	{NULL, NULL}
 	};
- 	(void)signal(SIGINT, sign_handler);
-	buff = malloc(sizeof(char) * buffsize);
+	/*(void)signal(SIGINT, sign_handler);*/
+	/*buff = malloc(sizeof(char) * buffsize);
 	if (!buff)
 	{
 		exit(1);
-	}
+	}*/
 	if(isatty(STDIN_FILENO) != 1)
 	{
 		if(getline(&buff, &buffsize, stdin) == EOF)
@@ -53,9 +53,9 @@ int main(void)
 		}
 		buff[_strlen(buff) - 1] = '\0';
 		argv = token_buff(buff, " \t\r\n\a");
+		/*printf("buff: %p, argv[0]: %p\n", buff, argv[0]);*/
 		shell_execute(argv, built_in_arr);
 	}
-	free(buff);
 	free(argv);
 	return (0);
 }
@@ -74,6 +74,7 @@ char **token_buff(char *buff, char *delimit)
 	if (tokens == NULL)
 	{
 		perror("Not possible to allocate memory");
+		free(buff);
 		exit(98);
 	}
 	stoken = strtok(buff, delimit);

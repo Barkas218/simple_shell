@@ -10,6 +10,7 @@ int ourexit(char **argv)
 
 	if (argv[1] == NULL)
 	{
+		free(argv[0]);
 		free(argv);
 		fflush(stdout);
 		exit(status);
