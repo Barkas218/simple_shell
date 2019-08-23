@@ -2,7 +2,7 @@
 
 int _unsetenv(char **argv)
 {
-	int i = 0, exist = 0, len = 0;
+	int i = 0, exist = 0, len = 0, j = 0;
 	char *tok, *copy;
 	char **new_env;
 
@@ -31,7 +31,8 @@ int _unsetenv(char **argv)
 				printf("-------------> Removing: %s\n", environ[i]);
 				continue;
 			}
-			new_env[i] = environ[i];
+			new_env[j] = environ[i];
+			j++;
 		}
 		new_env[len - 1] = NULL;
 		environ = new_env;
