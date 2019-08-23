@@ -7,17 +7,18 @@
 char *_getenv(char *name)
 {
 	int i = 0;
-	char *token, *deli = "=";
-
+	char *token, *deli = "=", *copy;
 
 	while (environ[i] != NULL)
 	{
-		token = strtok(environ[i], deli);
+		copy = _strdup(environ[i]);
+		token = strtok(copy, deli);
 		if (_strcmp(token, name) == 0)
 		{
 			return (strtok(NULL, deli));
 		}
 		i++;
+		free(copy);
 	}
 	return (NULL);
 }
