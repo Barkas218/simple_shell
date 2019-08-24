@@ -3,7 +3,7 @@
 int _setenv(char **argv)
 {
 	int i = 0, exist = 0, len = 0;
-	char *copy, *tok;
+	char *copy, *tok = 0, *val = 0;
 	char **new_env;
 
 	while (environ[len])
@@ -17,9 +17,12 @@ int _setenv(char **argv)
 		if (!_strcmp(argv[1], tok))
 		{
 			tok = _strcat(tok, "=");
-			tok = _strcat(tok, argv[2]);
+			val = _strcat(tok, argv[2]);
 			environ[i] = tok;
 			exist = 1;
+			free(tok);
+			free(copy);
+			free(val);
 			break;
 		}
 		i++;

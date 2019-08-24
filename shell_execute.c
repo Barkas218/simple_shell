@@ -41,7 +41,7 @@ int shell_launch(char **argv)
 		{
 			int c;
 
-			env = getenv("PATH");
+			env = _getenv("PATH");
 			path = token_buff(env, ":");
 			for (c = 0; path[c]; c++)
 			{

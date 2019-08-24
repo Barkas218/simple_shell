@@ -10,7 +10,8 @@ int ourexit(char **argv)
 
 	if (argv[1] == NULL)
 	{
-		free_grid(argv);
+		free(argv[0]);
+		free(argv);
 		fflush(stdout);
 		exit(status);
 	}
@@ -21,8 +22,9 @@ int ourexit(char **argv)
 			perror("Error: ");
 
 	}
-	free(argv);
 	status = _atoi(argv[1]);
+	free(argv[0]);
+	free(argv);
 	exit(status);
 }
 /**
@@ -40,13 +42,13 @@ int _cd(char **argv)
 	if (argv[1] == NULL)
 	{
 		setenv("OLDPWD", getcwd(buff, sizeof(buff)), 1);
-		env = getenv("HOME");
+		env = _getenv("HOME");
 		chdir(env);
 		return(0);
 	}
 	if (_strcmp(argv[1], comp) == 0)
 	{
-		old_pwd = getenv("OLDPWD");
+		old_pwd = _getenv("OLDPWD");
 		setenv("OLDPWD", getcwd(buff, sizeof(buff)), 1);
 		chdir(old_pwd);
 		return (0);
@@ -67,7 +69,7 @@ int _cd(char **argv)
 		perror("Error: ");
 		return (1);
 	}
-	setenv("OLDPWD", getenv("PWD"), 1);
+	setenv("OLDPWD", _getenv("PWD"), 1);
 	new_wd = getcwd(buff, sizeof(buff));
 	setenv("PWD", new_wd, 1);
 	return (0);

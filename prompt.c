@@ -22,7 +22,7 @@ int main(void)
 	{"unsetenv", _unsetenv},
 	{NULL, NULL}
 	};
-	/*(void)signal(SIGINT, sign_handler);*/
+	(void)signal(SIGINT, sign_handler);
 	if(isatty(STDIN_FILENO) != 1)
 	{
 		if(getline(&buff, &buffsize, stdin) == EOF)
