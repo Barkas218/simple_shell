@@ -40,6 +40,7 @@ unsigned int _strcspn(char *s1, char *s2);
 char *_strchr(char *s, char b);
 char *_strdup(char *s);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
+void free_grid(char **grid);
 int _atoi(char *s);
 int shell_execute(char **argv, built_in_t built_in_arr[]);
 int shell_launch(char **argv);

@@ -41,7 +41,7 @@ int shell_launch(char **argv)
 		{
 			int c;
 
-			env = _getenv("PATH");
+			env = getenv("PATH");
 			path = token_buff(env, ":");
 			for (c = 0; path[c]; c++)
 			{
@@ -50,7 +50,6 @@ int shell_launch(char **argv)
 				existence = check_existence(path_command);
 				if (existence != -1)
 				{
-					free(argv[0]);
 					argv[0] = path_command;
 					break;
 				}
@@ -63,9 +62,8 @@ int shell_launch(char **argv)
 			perror("Error");
 		free(argv[0]);
 		free(argv);
-		free(env);
 		free(path);
-		return(EXIT_FAILURE);
+		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		perror("hsh");

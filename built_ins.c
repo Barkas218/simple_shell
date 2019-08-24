@@ -10,8 +10,7 @@ int ourexit(char **argv)
 
 	if (argv[1] == NULL)
 	{
-		free(argv[0]);
-		free(argv);
+		free_grid(argv);
 		fflush(stdout);
 		exit(status);
 	}
@@ -35,18 +34,19 @@ int _cd(char **argv)
 {
 	char buff[1024], *cwd, *new_wd, *comp = "-", *old_pwd;
 	int chint = 0;
+	char *env;
 
 	cwd = getcwd(buff, sizeof(buff));
 	if (argv[1] == NULL)
 	{
 		setenv("OLDPWD", getcwd(buff, sizeof(buff)), 1);
-		chdir(_getenv("HOME"));
+		env = getenv("HOME");
+		chdir(env);
 		return(0);
 	}
 	if (_strcmp(argv[1], comp) == 0)
 	{
-		old_pwd = _getenv("OLDPWD");
-		printf("PWD: %s\n", old_pwd);
+		old_pwd = getenv("OLDPWD");
 		setenv("OLDPWD", getcwd(buff, sizeof(buff)), 1);
 		chdir(old_pwd);
 		return (0);
@@ -67,8 +67,7 @@ int _cd(char **argv)
 		perror("Error: ");
 		return (1);
 	}
-	setenv("OLDPWD", _getenv("PWD"), 1);
-	/*printf("%s\n", new_wd);*/
+	setenv("OLDPWD", getenv("PWD"), 1);
 	new_wd = getcwd(buff, sizeof(buff));
 	setenv("PWD", new_wd, 1);
 	return (0);

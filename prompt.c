@@ -10,7 +10,7 @@
 int main(void)
 {
 	char *buff = NULL;
-	size_t buffsize = 1024;
+	size_t buffsize = 64;
 	char **argv = 0;
 	int flag = 1;
 
@@ -23,11 +23,6 @@ int main(void)
 	{NULL, NULL}
 	};
 	/*(void)signal(SIGINT, sign_handler);*/
-	/*buff = malloc(sizeof(char) * buffsize);
-	if (!buff)
-	{
-		exit(1);
-	}*/
 	if(isatty(STDIN_FILENO) != 1)
 	{
 		if(getline(&buff, &buffsize, stdin) == EOF)
@@ -49,14 +44,14 @@ int main(void)
 		{
 			write_to_stdout("\n");
 			flag = 0;
+			free(buff);
 			continue;
 		}
 		buff[_strlen(buff) - 1] = '\0';
 		argv = token_buff(buff, " \t\r\n\a");
-		/*printf("buff: %p, argv[0]: %p\n", buff, argv[0]);*/
 		shell_execute(argv, built_in_arr);
+		free(argv);
 	}
-	free(argv);
 	return (0);
 }
 /**
