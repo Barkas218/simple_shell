@@ -1,5 +1,9 @@
 #include "holberton.h"
-
+/**
+ * _unsetenv - unsets an enviromental var
+ * @argv: pointer to the buffer with the command line
+ * Return: 1 on success
+ */
 int _unsetenv(char **argv)
 {
 	int i = 0, exist = 0, len = 0, j = 0;

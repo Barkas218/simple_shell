@@ -1,8 +1,8 @@
 #include "holberton.h"
 /**
- *
- *
- *
+ * _printenv - prints the enviroment
+ * @argv: pointer to the commands
+ * Return: 1 on success
  */
 int _printenv(char **argv)
 {

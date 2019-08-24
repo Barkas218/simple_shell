@@ -9,12 +9,11 @@
  */
 int main(void)
 {
-	char *buff = NULL;
+	char *buff = NULL, **argv = NULL;
 	size_t buffsize = 64;
-	char **argv = 0;
-	int flag = 1;
+	int flag = 1, err_count = 0;
 
- 	built_in_t built_in_arr[] = {
+	built_in_t built_in_arr[] = {
 	{"exit", ourexit},
 	{"env", _printenv},
 	{"setenv", _setenv},
@@ -22,27 +21,24 @@ int main(void)
 	{"unsetenv", _unsetenv},
 	{NULL, NULL}
 	};
-	/*(void)signal(SIGINT, sign_handler);*/
-	if(isatty(STDIN_FILENO) != 1)
+	(void)signal(SIGINT, sign_handler);
+	if (isatty(STDIN_FILENO) != 1)
 	{
-		if(getline(&buff, &buffsize, stdin) == EOF)
-		{
-			write_to_stdout("\n");
+		if (getline(&buff, &buffsize, stdin) == EOF)
+		{write_to_stdout("\n");
 			flag = 0;
 		}
 		buff[_strlen(buff) - 1] = '\0';
 		argv = token_buff(buff, " \t\r\n\a");
 		shell_execute(argv, built_in_arr);
-		free(buff);
-		free(argv);
+		free(buff), free(argv);
 		return (0);
 	}
 	while (flag)
-	{
-		write_to_stdout("$ ");
+	{write_to_stdout("$ ");
+		err_count++;
 		if (getline(&buff, &buffsize, stdin) == EOF)
-		{
-			write_to_stdout("\n");
+		{write_to_stdout("\n");
 			flag = 0;
 			free(buff);
 			continue;

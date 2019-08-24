@@ -13,7 +13,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
 		return (1);
 
 	while (i < 5)
-	{		
+	{
 		if (_strcmp(argv[0], built_in_arr[i].command) == 0)
 		{
 			return (built_in_arr[i].f(argv));
@@ -38,8 +38,7 @@ int shell_launch(char **argv)
 	{
 		existence = check_existence(argv[0]);
 		if (existence == -1)
-		{
-			int c;
+		{int c;
 
 			env = getenv("PATH");
 			path = token_buff(env, ":");

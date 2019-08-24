@@ -26,6 +26,7 @@ int _cd(char **argv);
 int _unsetenv(char **argv);
 
 /* functions prototypes */
+int shell_core(char *buff, size_t buffsize, char **argv, built_in_t buil_in_arr[]);
 void sign_handler(int sig);
 char *_strcat(char *dest, char *command);
 int check_existence(char *file);

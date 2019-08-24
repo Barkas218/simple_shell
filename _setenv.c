@@ -1,5 +1,9 @@
 #include "holberton.h"
-
+/**
+ * _setenv - sets a new enviromental variable
+ * @argv: pointer to the input commands
+ * Return: 1 on success
+ */
 int _setenv(char **argv)
 {
 	int i = 0, exist = 0, len = 0;
