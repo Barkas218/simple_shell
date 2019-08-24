@@ -44,7 +44,7 @@ int _cd(char **argv)
 		setenv("OLDPWD", getcwd(buff, sizeof(buff)), 1);
 		env = _getenv("HOME");
 		chdir(env);
-		return(0);
+		return (0);
 	}
 	if (_strcmp(argv[1], comp) == 0)
 	{
