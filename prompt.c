@@ -10,45 +10,43 @@
 int main(void)
 {
 	char *buff = NULL, **argv = NULL;
-	size_t buffsize = 64;
 	int flag = 1, err_count = 0;
+	int status;
 
 	built_in_t built_in_arr[] = {
-	{"exit", ourexit},
-	{"env", _printenv},
-	{"setenv", _setenv},
-	{"cd", _cd},
-	{"unsetenv", _unsetenv},
-	{NULL, NULL}
+		{"exit", ourexit},
+		{"env", _printenv},
+		{"setenv", _setenv},
+		{"unsetenv", _unsetenv},
+		{"cd", _cd},
+		{NULL, NULL}
 	};
+
 	(void)signal(SIGINT, sign_handler);
-	if (isatty(STDIN_FILENO) != 1)
-	{
-		if (getline(&buff, &buffsize, stdin) == EOF)
-		{write_to_stdout("\n");
-			flag = 0;
-		}
-		buff[_strlen(buff) - 1] = '\0';
-		argv = token_buff(buff, " \t\r\n\a");
-		shell_execute(argv, built_in_arr);
-		free(buff), free(argv);
-		return (0);
-	}
+
 	while (flag)
-	{write_to_stdout("$ ");
+	{
+		if (isatty(STDIN_FILENO) == 1)
+			_puts("$ ");
+
 		err_count++;
-		if (getline(&buff, &buffsize, stdin) == EOF)
-		{write_to_stdout("\n");
-			flag = 0;
-			free(buff);
-			continue;
-		}
-		buff[_strlen(buff) - 1] = '\0';
+
+		buff = read_input();
+
 		argv = token_buff(buff, " \t\r\n\a");
-		shell_execute(argv, built_in_arr);
+
+		status = shell_execute(argv, built_in_arr);
+
+		if (status != EXIT_SUCCESS)
+			_error_handler(status, err_count, argv);
+
 		free(argv);
+		free(buff);
+
+		if (!isatty(STDIN_FILENO))
+			return (0);
 	}
-	return (0);
+	return (status);
 }
 /**
  * token_buff - splits the buffer into tokens
@@ -78,27 +76,26 @@ char **token_buff(char *buff, char *delimit)
 	tokens[iterator] = NULL;
 	return (tokens);
 }
-/**
- * write_to_stdout - writes a string to the stdout
- * @str: pointer to the string to print
- **/
-void write_to_stdout(char *str)
-{
-	write(1, str, _strlen(str));
-}
-/**
- * check_existence - checkes whether a file exists
- * @path: pointer to the path to search in
- * Return: 1 on success, -1 if failed
- */
-int check_existence(char *path)
-{
-	int fd = access(path, F_OK & X_OK);
 
-	if (fd == -1)
-		return (-1);
-	return (1);
+/**
+ * read_input - read input form stdin
+ * Retirn: pointer to buffer read
+ */
+char *read_input()
+{
+	char *buff = NULL;
+	size_t size = 1024;
+
+	if (getline(&buff, &size, stdin) == EOF)
+	{
+		_puts("\n");
+		free(buff);
+		exit(0);
+	}
+	buff[_strlen(buff) - 1] = '\0';
+	return (buff);
 }
+
 /**
  * sign_handler - handles the abscensce of a sign
  * @sig: integer
@@ -106,7 +103,7 @@ int check_existence(char *path)
 void sign_handler(int sig)
 {
 	(void) sig;
-	write_to_stdout("\n");
-	write_to_stdout("$ ");
+	_puts("\n");
+	_puts("$ ");
 	fflush(stdout);
 }

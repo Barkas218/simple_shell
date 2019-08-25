@@ -19,7 +19,7 @@ int ourexit(char **argv)
 	for (i = 0; argv[1][i] != '\0'; i++)
 	{
 		if (argv[1][i] < 48 || argv[1][i] > 57)
-			perror("Error: ");
+			return (2);
 
 	}
 	status = _atoi(argv[1]);
