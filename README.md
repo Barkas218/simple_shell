@@ -48,7 +48,7 @@ $ man ./man_1_page
 and you will se something like this 
 
 ```sh
-HOLBISHELL(1)                                                                      General Commands Manual                                                                       HOLBISHELL(1)
+HOLBISHELL(1)                       General Commands Manual                                HOLBISHELL(1)
 
 NAME
        Simple Holbishell
