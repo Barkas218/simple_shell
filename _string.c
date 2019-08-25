@@ -121,6 +121,9 @@ int _strlen(char *s)
 {
 	int counter = 0;
 
+	if (!s)
+		return (counter);
+
 	while (s[counter] != 0)
 		counter++;
 	return (counter);

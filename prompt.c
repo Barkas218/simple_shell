@@ -11,7 +11,7 @@ int main(void)
 {
 	char *buff = NULL, **argv = NULL;
 	int flag = 1, err_count = 0;
-	int status;
+	int status = EXIT_SUCCESS;
 
 	built_in_t built_in_arr[] = {
 		{"exit", ourexit},
@@ -23,10 +23,11 @@ int main(void)
 	};
 
 	(void)signal(SIGINT, sign_handler);
+	(void) built_in_arr;
 
 	while (flag)
 	{
-		if (isatty(STDIN_FILENO) == 1)
+		if (isatty(STDIN_FILENO))
 			_puts("$ ");
 
 		err_count++;
@@ -35,7 +36,8 @@ int main(void)
 
 		argv = token_buff(buff, " \t\r\n\a");
 
-		status = shell_execute(argv, built_in_arr);
+		if (argv[0])
+			status = shell_execute(argv, built_in_arr);
 
 		if (status != EXIT_SUCCESS)
 			_error_handler(status, err_count, argv);
@@ -90,7 +92,7 @@ char *read_input()
 	{
 		_puts("\n");
 		free(buff);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 	buff[_strlen(buff) - 1] = '\0';
 	return (buff);
