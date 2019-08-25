@@ -59,18 +59,19 @@ SYNOPSIS
        ./hsh -> executes
 
 DESCRIPTION
-       Simple Holbishell is a prorgramm that provides an interface for users to get access to the kernel's services.  
+       Simple Holbishell is a prorgramm that provides an interface for users to get access to the kernel's 
+       services.  
        This shell works as a command interpreter in two modes:
 
        Interactive Mode
 
-       In this mode, the shell takes the commands from the standard input, executes them and gets ready to read anot
-       her command-line.
+       In this mode, the shell takes the commands from the standard input, executes them and gets ready to 
+       read another command-line.
 
        Non-interactive Mode
 
-       This mode reads the commands from a file sent thru a pipe, the commands will be executed and the shell won't 
-       ask for more.
+       This mode reads the commands from a file sent thru a pipe, the commands will be executed and the shell 
+       won't ask for more commands.
 
        The Holbishell is fully written in C programming language, it uses systemcalls and regular C functions.
 
@@ -78,8 +79,8 @@ ARGUMENTS
        This Shell does not support arguments.
 
 INVOCATION
-       In order to invoke this shell it is necessary to run the ./hsh command. We also provided a Makefile to make 
-       the compiltion easier.
+       In order to invoke this shell it is necessary to run the ./hsh command. We also provided a Makefile 
+       to make the compiltion easier.
 ```
 # Files
 | File | Description |
