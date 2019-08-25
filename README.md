@@ -1,4 +1,4 @@
-imple Shell - C prorgramming language
+# Simple Shell - C prorgramming language
 
 This simple Shell - **Holbishell** - is a prorgramm that provides an interface for users to get access to the kernel's services. In other words the  **Holbishell** works as a command interpreter.
 
