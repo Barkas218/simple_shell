@@ -13,7 +13,13 @@ extern char *program_invocation_name;
 #include <string.h>
 
 /* Structs */
-
+/**
+ * struct built_in - Struct to handle the built-ins commands
+ * @command: input command to handle
+ * @f: function pointer to execute the command
+ *
+ * Description: has a command an function pointer to react to it
+ */
 typedef struct built_in
 {
 	char *command;
@@ -22,7 +28,7 @@ typedef struct built_in
 
 int ourexit(char **argv);
 int _printenv(char **argv);
-int _setenv(char ** argv);
+int _setenv(char **argv);
 int _cd(char **argv);
 int _unsetenv(char **argv);
 
