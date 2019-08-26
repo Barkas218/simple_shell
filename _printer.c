@@ -1,5 +1,8 @@
 #include "holberton.h"
-
+/**
+ * _puts - writes to the STDOUT
+ * @s: pointer to the string to be rpinted
+ */
 void _puts(char *s)
 {
 	write(STDOUT_FILENO, s, _strlen(s));

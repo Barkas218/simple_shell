@@ -40,7 +40,6 @@ int shell_launch(char **argv)
 		existence = check_existence(argv[0]);
 		if (existence == -1)
 		{
-
 			env = _getenv("PATH");
 			path = token_buff(env, ":");
 			for (c = 0; path[c]; c++)
@@ -59,25 +58,29 @@ int shell_launch(char **argv)
 				free(command);
 			}
 			if (file_found == -1)
-			{
-				free(argv[0]);
-				free(argv);
-				free(path);
-				exit(127);
-			}
+				_freeall(argv, path);
 		}
 		if (execve(argv[0], argv, NULL) == -1)
 			perror("Error");
-		free(argv[0]);
-		free(argv);
-		free(path);
-		exit(EXIT_FAILURE);
+		_freeall(argv, path);
 	}
 	else if (pid < 0)
 		perror("hsh");
 	else
 		wait(&status);
 	return (status);
+}
+/**
+ * _freeall - frees arv and path
+ * @argv: Buffer containing the tokens
+ * @path: path to look for exec files
+ */
+void _freeall(char **argv, char **path)
+{
+	free(argv[0]);
+	free(argv);
+	free(path);
+	exit(127);
 }
 /**
  * check_existence - checkes whether a file exists

@@ -1,5 +1,10 @@
 #include "holberton.h"
-
+/**
+ * _error_handler - handles the error, and prints them according to format
+ * @status: exit status
+ * @err: line counter
+ * @argv: Buffer containing the tokens
+ */
 void _error_handler(int status, int err, char **argv)
 {
 	/* error msg */
@@ -25,7 +30,11 @@ void _error_handler(int status, int err, char **argv)
 			break;
 	}
 }
-
+/**
+ * _print_base_error - prints the errors
+ * @err: line counter
+ * @argv: buffer containing the tokens
+ */
 void _print_base_error(int err, char **argv)
 {
 	_puts(program_invocation_name);

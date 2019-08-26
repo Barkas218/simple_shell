@@ -29,7 +29,7 @@ int _unsetenv(char **argv);
 /* functions prototypes */
 void sign_handler(int sig);
 char *read_input();
-
+void _freeall(char **argv, char **path);
 char *_strcat(char *dest, char *command);
 int _strlen(char *str);
 int _strcmp(char *s1, char *s2);
@@ -37,7 +37,6 @@ char *_strcpy(char *dest, char *src);
 char *_strchr(char *s, char b);
 char *_strdup(char *s);
 unsigned int _strcspn(char *s1, char *s2);
-
 int check_existence(char *file);
 char **token_buff(char *buff, char *delimiter);
 void _puts(char *str);

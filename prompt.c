@@ -39,10 +39,7 @@ int main(void)
 		if (argv[0])
 			status = shell_execute(argv, built_in_arr);
 
-		printf("status 2: %d", status);
-
 		_error_handler(status, err_count, argv);
-
 		free(argv);
 		free(buff);
 
@@ -82,7 +79,7 @@ char **token_buff(char *buff, char *delimit)
 
 /**
  * read_input - read input form stdin
- * Retirn: pointer to buffer read
+ * Return: pointer to buffer read
  */
 char *read_input()
 {
