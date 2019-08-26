@@ -46,7 +46,7 @@ int main(void)
 		free(buff);
 
 		if (!isatty(STDIN_FILENO))
-			return (0);
+			return (EXIT_SUCCESS);
 	}
 	return (status);
 }

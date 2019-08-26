@@ -51,43 +51,35 @@ int _printenv(char **argv)
  */
 int _setenv(char **argv)
 {
-	int i = 0, exist = 0, len = 0;
-	char *copy, *tok = 0, *val = 0;
-	char **new_env;
+	int status = EXIT_SUCCESS, exist = 0, i = 0;
+	char *dup = 0, *tok = 0, *val = 0;
 
-	while (environ[len])
-		len++;
 	while (environ[i])
 	{
-		copy = _strdup(environ[i]);
-		tok = _strtok(copy, "=");
-
-		if (!_strcmp(argv[1], tok))
+		dup = _strdup(environ[i]);
+		tok = strtok(dup, "=");
+		if (!_strcmp(tok, argv[1]))
 		{
-			tok = _strcat(tok, "=");
+			tok = _strcat(argv[1], "=");
 			val = _strcat(tok, argv[2]);
-			environ[i] = tok;
-			exist = 1;
+
+			environ[i] = _strcpy(environ[i], val);
 			free(tok);
-			free(copy);
 			free(val);
-			break;
+			exist = 1;
 		}
+		free(dup);
 		i++;
-		free(copy);
 	}
+
+	/* if the variable does not exist then create it */
+
 	if (!exist)
 	{
-		tok = _strcat(argv[1], "=");
-		tok = _strcat(tok, argv[2]);
-		new_env = malloc(sizeof(char *) * (len + 1));
-		for (i = 0; i < len; i++)
-			new_env[i] = environ[i];
-		new_env[len] = tok;
-		new_env[len + 1] = NULL;
-		environ = new_env;
+		/* not implemented */
 	}
-	return (0);
+
+	return (status);
 }
 /**
  * _unsetenv - unsets an enviromental var
