@@ -27,7 +27,6 @@ int _cd(char **argv);
 int _unsetenv(char **argv);
 
 /* functions prototypes */
-/*int shell_core(char *buff, size_t buffsize, char **argv, built_in_t buil_in_arr[]);*/
 void sign_handler(int sig);
 char *read_input();
 
@@ -54,4 +53,5 @@ int shell_execute(char **argv, built_in_t built_in_arr[]);
 int shell_launch(char **argv);
 
 void _error_handler(int status, int err, char **argv);
+void _print_base_error(int err, char **argv);
 #endif

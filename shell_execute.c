@@ -32,7 +32,7 @@ int shell_launch(char **argv)
 	int pid, existence, file_found = -1, c;
 	char **path, *command, *path_command;
 	char *env = NULL;
-	int status = 0;
+	int status = -1;
 
 	pid = fork();
 	if (pid == 0)
@@ -71,14 +71,13 @@ int shell_launch(char **argv)
 		free(argv[0]);
 		free(argv);
 		free(path);
-		exit(127);
+		exit(EXIT_FAILURE);
 	}
 	else if (pid < 0)
 		perror("hsh");
 	else
 		wait(&status);
-
-	return (WEXITSTATUS(status));
+	return (status);
 }
 /**
  * check_existence - checkes whether a file exists
