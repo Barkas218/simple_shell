@@ -60,7 +60,9 @@ int shell_launch(char **argv)
 			if (file_found == -1)
 				_freeall(argv, path);
 		}
-		if (execve(argv[0], argv, NULL) == -1)
+		if (!argv[0])
+			exit(EXIT_SUCCESS);
+		if (execve(argv[0], argv, environ) == -1)
 			perror("Error");
 		_freeall(argv, path);
 	}

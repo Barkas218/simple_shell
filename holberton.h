@@ -59,4 +59,6 @@ int shell_launch(char **argv);
 
 void _error_handler(int status, int err, char **argv);
 void _print_base_error(int err, char **argv);
+
+void _non_int(built_in_t arr[]);
 #endif

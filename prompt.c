@@ -22,13 +22,17 @@ int main(void)
 		{NULL, NULL}
 	};
 
+	if (isatty(STDIN_FILENO) != 1)
+	{
+		_non_int(built_in_arr);
+	}
+
 	(void)signal(SIGINT, sign_handler);
 	(void) built_in_arr;
 
 	while (flag)
 	{
-		if (isatty(STDIN_FILENO))
-			_puts("$ ");
+		_puts("$ ");
 
 		err_count++;
 
@@ -42,9 +46,6 @@ int main(void)
 		_error_handler(status, err_count, argv);
 		free(argv);
 		free(buff);
-
-		if (!isatty(STDIN_FILENO))
-			return (EXIT_SUCCESS);
 	}
 	return (status);
 }
