@@ -4,7 +4,7 @@
  *
  *
  *
- **/
+*
 int _getchar(void)
 {
 	char buff[1];
@@ -19,13 +19,12 @@ int _getchar(void)
 	}
 	return (buff[0]);
 }
-/**
+**
  *
  *
  *
  *
- */
 ssize_t getline(char **lineptr, size_t *n, FILE *stream)
 {
 
-}
+}*/

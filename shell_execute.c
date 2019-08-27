@@ -29,24 +29,24 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
  */
 int shell_launch(char **argv)
 {
-	int pid, existence, file_found = -1, c, status;
+	int pid, existence, current_path = 0, c, status;
 	char **path = 0, *command = 0, *path_command = 0, *env = 0;
 
-	(void)file_found;
 	pid = fork();
 	if (pid == 0)
 	{
 		env = _getenv("PATH");
+		if (env[0] == ':')
+			current_path = 1;
 		path = token_buff(env, ":");
 		for (c = 0; path[c]; c++)
 		{
 			command = _strcat("/", argv[0]);
 			path_command = _strcat(path[c], command);
 			existence = check_existence(path_command);
-			if (existence != -1)
+			if (existence != -1 && !current_path)
 			{
 				argv[0] = path_command;
-				file_found = 0;
 				break;
 			}
 			else
