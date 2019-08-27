@@ -41,7 +41,7 @@ $ echo "/bin/ls" | ./hsh
 _atoi.c AUTHORS built_ins.c _environ.c _error_handler.c holberton.h Makefile
 ```
 ## Algorithm
-![Flowchart](https://ibb.co/xq9q8KN)
+![Flowchart](https://cdn1.imggmi.com/uploads/2019/8/27/2eca13065c892173a6bb5dce9026df18-full.png)
 # Manual
 We provided a man page in the repository, it can be run like this:
 ```
