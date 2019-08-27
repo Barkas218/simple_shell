@@ -16,7 +16,7 @@ void _error_handler(int status, int err, char **argv)
 			_puts("not found");
 			_puts("\n");
 			break;
-		case 3:
+		case 2:
 			_print_base_error(err, argv);
 			_puts("Illegal number");
 			if (argv[1])

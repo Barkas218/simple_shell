@@ -13,10 +13,10 @@ char *_getenv(char *name)
 	while (environ[i] != NULL)
 	{
 		dup = _strdup(environ[i]);
-		token = strtok(environ[i], deli);
+		token = _strtok(environ[i], deli);
 		if (_strcmp(token, name) == 0)
 		{
-			token = strtok(NULL, deli);
+			token = _strtok(NULL, deli);
 			environ[i] = _strcpy(environ[i], dup);
 			free(dup);
 			return (token);
@@ -57,7 +57,7 @@ int _setenv(char **argv)
 	while (environ[i])
 	{
 		dup = _strdup(environ[i]);
-		tok = strtok(dup, "=");
+		tok = _strtok(dup, "=");
 		if (!_strcmp(tok, argv[1]))
 		{
 			tok = _strcat(argv[1], "=");

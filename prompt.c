@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <string.h>
 #include <unistd.h>
 #include <sys/wait.h>
 #include "holberton.h"
@@ -68,12 +67,12 @@ char **token_buff(char *buff, char *delimit)
 		free(buff);
 		exit(98);
 	}
-	stoken = strtok(buff, delimit);
+	stoken = _strtok(buff, delimit);
 	while (stoken != NULL)
 	{
 		tokens[iterator] = stoken;
 		iterator++;
-		stoken = strtok(NULL, delimit);
+		stoken = _strtok(NULL, delimit);
 	}
 	tokens[iterator] = NULL;
 	return (tokens);
