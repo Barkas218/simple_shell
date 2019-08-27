@@ -32,32 +32,33 @@ int shell_launch(char **argv)
 	int pid, existence, file_found = -1, c, status;
 	char **path = 0, *command = 0, *path_command = 0, *env = 0;
 
+	(void)file_found;
 	pid = fork();
 	if (pid == 0)
 	{
-		existence = check_existence(argv[0]);
-		if (existence == -1)
+		env = _getenv("PATH");
+		path = token_buff(env, ":");
+		for (c = 0; path[c]; c++)
 		{
-			env = _getenv("PATH");
-			path = token_buff(env, ":");
-			for (c = 0; path[c]; c++)
+			command = _strcat("/", argv[0]);
+			path_command = _strcat(path[c], command);
+			existence = check_existence(path_command);
+			if (existence != -1)
 			{
-				command = _strcat("/", argv[0]);
-				path_command = _strcat(path[c], command);
-				existence = check_existence(path_command);
-				if (existence != -1)
-				{
-					argv[0] = path_command;
-					file_found = 0;
-					break;
-				}
-				else
-					free(path_command);
-				free(command);
+				argv[0] = path_command;
+				file_found = 0;
+				break;
 			}
-			if (file_found == -1)
-				_freeall(argv, path);
+			else
+				free(path_command);
+			free(command);
 		}
+
+		existence = check_existence(argv[0]);
+
+		if (existence == -1)
+			_freeall(argv, path);
+
 		if (execve(argv[0], argv, environ) == -1)
 			perror("Error");
 		_freeall(argv, path);
@@ -87,7 +88,7 @@ void _freeall(char **argv, char **path)
  */
 int check_existence(char *path)
 {
-	int fd = access(path, F_OK & X_OK);
+	int fd = access(path, F_OK | X_OK);
 
 	if (fd == -1)
 		return (-1);
