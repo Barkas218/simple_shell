@@ -1,6 +1,6 @@
-# Simple Shell - C prorgramming language
+# Simple Shell - C programming language
 
-This simple Shell - **Holbishell** - is a prorgramm that provides an interface for users to get access to the kernel's services. In other words the  **Holbishell** works as a command interpreter.
+This simple Shell - **Holbishell** - is a programm that provides an interface for users to get access to the kernel's services. In other words the  **Holbishell** works as a command interpreter.
 
 This shell is able to run default commands and also some other that have been built in (More info inside the Man Page).
 

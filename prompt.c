@@ -40,8 +40,9 @@ int main(void)
 
 		argv = token_buff(buff, " \t\r\n\a");
 
-		if (argv[0])
-			status = shell_execute(argv, built_in_arr);
+		status = shell_execute(argv, built_in_arr);
+
+		/*printf("------>status: %d\n", status);*/
 
 		_error_handler(status, err_count, argv);
 		free(argv);

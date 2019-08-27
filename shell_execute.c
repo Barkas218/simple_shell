@@ -29,10 +29,8 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
  */
 int shell_launch(char **argv)
 {
-	int pid, existence, file_found = -1, c;
-	char **path, *command, *path_command;
-	char *env = NULL;
-	int status = -1;
+	int pid, existence, file_found = -1, c, status;
+	char **path = 0, *command = 0, *path_command = 0, *env = 0;
 
 	pid = fork();
 	if (pid == 0)
@@ -60,8 +58,6 @@ int shell_launch(char **argv)
 			if (file_found == -1)
 				_freeall(argv, path);
 		}
-		if (!argv[0])
-			exit(EXIT_SUCCESS);
 		if (execve(argv[0], argv, environ) == -1)
 			perror("Error");
 		_freeall(argv, path);
@@ -70,7 +66,7 @@ int shell_launch(char **argv)
 		perror("hsh");
 	else
 		wait(&status);
-	return (status);
+	return (WEXITSTATUS(status));
 }
 /**
  * _freeall - frees arv and path
@@ -94,8 +90,6 @@ int check_existence(char *path)
 	int fd = access(path, F_OK & X_OK);
 
 	if (fd == -1)
-	{
 		return (-1);
-	}
 	return (1);
 }
