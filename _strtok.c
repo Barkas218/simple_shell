@@ -13,11 +13,13 @@ char *_strtok(char *s, char *deli)
 
 	if (!s)
 		s = str;
-	do {
-		c = *s++;
+	c = *s++;
+	while (_strchr(deli, c))
+	{
 		if (c == 0)
 			return (0);
-	} while (_strchr(deli, c));
+		c = *s++;
+	}
 	--s;
 	str = s + _strcspn(s, deli);
 	if (*str != 0)
