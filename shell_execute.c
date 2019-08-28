@@ -36,7 +36,7 @@ int shell_launch(char **argv)
 	if (pid == 0)
 	{
 		env = _getenv("PATH");
-		if (env[0] == ':')
+		if (env && env[0] == ':')
 			current_path = 1;
 		path = token_buff(env, ":");
 		for (c = 0; path[c]; c++)
