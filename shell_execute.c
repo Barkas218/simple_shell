@@ -10,7 +10,7 @@ int shell_execute(char **argv, built_in_t built_in_arr[])
 	int i = 0;
 
 	if (argv[0] == NULL)
-		return (1);
+		return (0);
 
 	while (i < 5)
 	{
