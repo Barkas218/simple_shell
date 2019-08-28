@@ -53,15 +53,16 @@ int shell_launch(char **argv)
 				free(path_command);
 			free(command);
 		}
-
 		existence = check_existence(argv[0]);
-
 		if (existence == -1)
+		{
 			_freeall(argv, path);
-
+			exit(127);
+		}
 		if (execve(argv[0], argv, environ) == -1)
 			perror("Error");
 		_freeall(argv, path);
+		exit(2);
 	}
 	else if (pid < 0)
 		perror("hsh");
@@ -79,7 +80,6 @@ void _freeall(char **argv, char **path)
 	free(argv[0]);
 	free(argv);
 	free(path);
-	exit(127);
 }
 /**
  * check_existence - checkes whether a file exists

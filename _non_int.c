@@ -16,7 +16,7 @@ void _non_int(built_in_t arr[])
 		err_count++;
 		argv = token_buff(buff, " \t\r\n\a");
 		status = shell_execute(argv, arr);
-		_error_handler(status, err_count, argv);
+		_error_handler(&status, err_count, argv);
 		free(argv);
 	}
 	free(buff);

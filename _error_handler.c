@@ -5,18 +5,18 @@
  * @err: line counter
  * @argv: Buffer containing the tokens
  */
-void _error_handler(int status, int err, char **argv)
+void _error_handler(int *status, int err, char **argv)
 {
 	/* error msg */
 
-	switch (status)
+	switch (*status)
 	{
 		case 127:
 			_print_base_error(err, argv);
 			_puts("not found");
 			_puts("\n");
 			break;
-		case 2:
+		case 3:
 			_print_base_error(err, argv);
 			_puts("Illegal number");
 			if (argv[1])

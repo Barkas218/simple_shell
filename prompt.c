@@ -43,7 +43,7 @@ int main(void)
 
 		/*printf("------>status: %d\n", status);*/
 
-		_error_handler(status, err_count, argv);
+		_error_handler(&status, err_count, argv);
 		free(argv);
 		free(buff);
 	}
