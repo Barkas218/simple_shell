@@ -91,7 +91,7 @@ char *read_input()
 	{
 		_puts("\n");
 		free(buff);
-		exit(EXIT_SUCCESS);
+		exit(127);
 	}
 	buff[_strlen(buff) - 1] = '\0';
 	return (buff);
